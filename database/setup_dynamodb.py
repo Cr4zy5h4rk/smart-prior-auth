@@ -1,5 +1,7 @@
 import boto3
 import json
+from decimal import Decimal
+
 from botocore.exceptions import ClientError
 
 def create_dynamodb_table():
@@ -112,63 +114,63 @@ def insert_sample_data(table_name):
     table = dynamodb.Table(table_name)
     
     sample_data = [
-        {
-            'request_id': 'demo-001',
-            'timestamp': '2025-06-10T10:00:00Z',
-            'status': 'analyzed',
-            'patient_info': {
-                'name': 'John Doe',
-                'age': 45,
-                'insurance_type': 'BlueCross',
-                'member_id': 'BC123456789'
-            },
-            'treatment_analysis': {
-                'approval_probability': 0.85,
-                'treatment_type': 'Ozempic',
-                'requirements': ['Prior diabetes medications tried', 'HbA1c > 7%'],
-                'typical_approval_time': '48-72 hours'
-            },
-            'created_at': 1717992000
+    {
+        'request_id': 'demo-001',
+        'timestamp': '2025-06-10T10:00:00Z',
+        'status': 'analyzed',
+        'patient_info': {
+            'name': 'John Doe',
+            'age': 45,
+            'insurance_type': 'BlueCross',
+            'member_id': 'BC123456789'
         },
-        {
-            'request_id': 'demo-002',
-            'timestamp': '2025-06-10T11:00:00Z',
-            'status': 'submitted',
-            'patient_info': {
-                'name': 'Jane Smith',
-                'age': 38,
-                'insurance_type': 'Aetna',
-                'member_id': 'AE987654321'
-            },
-            'treatment_analysis': {
-                'approval_probability': 0.92,
-                'treatment_type': 'MRI Knee',
-                'requirements': ['6 weeks conservative treatment completed'],
-                'typical_approval_time': '3-5 days'
-            },
-            'created_at': 1717995600
+        'treatment_analysis': {
+            'approval_probability': Decimal('0.85'),  # <-- Decimal au lieu de float
+            'treatment_type': 'Ozempic',
+            'requirements': ['Prior diabetes medications tried', 'HbA1c > 7%'],
+            'typical_approval_time': '48-72 hours'
         },
-        {
-            'request_id': 'demo-003',
-            'timestamp': '2025-06-10T12:00:00Z',
-            'status': 'approved',
-            'patient_info': {
-                'name': 'Robert Johnson',
-                'age': 62,
-                'insurance_type': 'UnitedHealth',
-                'member_id': 'UH456789123'
-            },
-            'treatment_analysis': {
-                'approval_probability': 0.78,
-                'treatment_type': 'Insulin Pump',
-                'requirements': ['Type 1 diabetes confirmed', 'CGM experience'],
-                'typical_approval_time': '5-7 days'
-            },
-            'created_at': 1717999200,
-            'approval_date': '2025-06-10T14:30:00Z',
-            'approval_number': 'AUTH-2025-001234'
-        }
-    ]
+        'created_at': 1717992000
+    },
+    {
+        'request_id': 'demo-002',
+        'timestamp': '2025-06-10T11:00:00Z',
+        'status': 'submitted',
+        'patient_info': {
+            'name': 'Jane Smith',
+            'age': 38,
+            'insurance_type': 'Aetna',
+            'member_id': 'AE987654321'
+        },
+        'treatment_analysis': {
+            'approval_probability': Decimal('0.92'),  # Decimal ici aussi
+            'treatment_type': 'MRI Knee',
+            'requirements': ['6 weeks conservative treatment completed'],
+            'typical_approval_time': '3-5 days'
+        },
+        'created_at': 1717995600
+    },
+    {
+        'request_id': 'demo-003',
+        'timestamp': '2025-06-10T12:00:00Z',
+        'status': 'approved',
+        'patient_info': {
+            'name': 'Robert Johnson',
+            'age': 62,
+            'insurance_type': 'UnitedHealth',
+            'member_id': 'UH456789123'
+        },
+        'treatment_analysis': {
+            'approval_probability': Decimal('0.78'),  # Decimal ici aussi
+            'treatment_type': 'Insulin Pump',
+            'requirements': ['Type 1 diabetes confirmed', 'CGM experience'],
+            'typical_approval_time': '5-7 days'
+        },
+        'created_at': 1717999200,
+        'approval_date': '2025-06-10T14:30:00Z',
+        'approval_number': 'AUTH-2025-001234'
+    }
+]
     
     try:
         with table.batch_writer() as batch:

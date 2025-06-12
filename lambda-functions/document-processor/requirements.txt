@@ -1,1 +1,1 @@
-echo "boto3>=1.28.0" > lambda-functions/document-processor/requirements.txt
+boto3>=1.28.0

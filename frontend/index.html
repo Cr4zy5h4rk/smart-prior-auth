@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prior Auth Automation</title>
+    <style>
+        body { font-family: Arial; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .upload-box { border: 2px dashed #ccc; padding: 20px; text-align: center; margin: 20px 0; }
+        #result { margin-top: 20px; padding: 15px; border-radius: 5px; display: none; }
+        .approved { background-color: #d4edda; color: #155724; }
+        .denied { background-color: #f8d7da; color: #721c24; }
+        .processing { background-color: #e2e3e5; color: #383d41; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; border: none; padding: 10px 15px; cursor: pointer; }
+        button:hover { background-color: #0069d9; }
+        .loading { display: none; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Prior Authorization Submission</h1>
+    
+    <div class="form-group">
+        <label for="treatmentType">Treatment Type:</label>
+        <input type="text" id="treatmentType" placeholder="e.g. MRI, Ozempic, Physical Therapy">
+    </div>
+    
+    <div class="form-group">
+        <label>Insurance Provider:</label>
+        <select id="insuranceSelect">
+            <option value="BlueCross">BlueCross BlueShield</option>
+            <option value="Aetna">Aetna</option>
+            <option value="UnitedHealthcare">UnitedHealthcare</option>
+            <option value="Cigna">Cigna</option>
+            <option value="Humana">Humana</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label>Patient Name (optional):</label>
+        <input type="text" id="patientName" placeholder="John Doe">
+    </div>
+    
+    <div class="upload-box" id="dropZone">
+        <p>Drag & drop medical documents here or click to browse</p>
+        <input type="file" id="fileInput" accept=".pdf,.jpg,.png" style="display: none;">
+    </div>
+    
+    <div class="form-group">
+        <button id="submitBtn">Submit for Approval</button>
+        <div class="loading" id="loadingSpinner">Processing... Please wait</div>
+    </div>
+    
+    <div id="result"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

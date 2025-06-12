@@ -167,7 +167,8 @@ Custom business rules are implemented for insurers such as:
 
 ## Screenshots 
 
-![alt texte](https://www.flickr.com/gp/202373047@N05/yGXR6801Bt)
+configuration DucumentProcessor Lambda function
+![xxxx](https://live.staticflickr.com/65535/54585003910_8fb360860b_b.jpg)
 
 ## ✅ Best Practices Followed
 

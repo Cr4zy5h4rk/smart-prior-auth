@@ -167,7 +167,7 @@ Custom business rules are implemented for insurers such as:
 
 ## Screenshots 
 
-[alt texte] (https://www.flickr.com/gp/202373047@N05/yGXR6801Bt)
+![alt texte] (https://www.flickr.com/gp/202373047@N05/yGXR6801Bt)
 
 ## ✅ Best Practices Followed
 

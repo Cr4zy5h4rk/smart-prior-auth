@@ -165,10 +165,61 @@ Custom business rules are implemented for insurers such as:
 
 ---
 
-## Screenshots 
+## Screenshots
 
-configuration DucumentProcessor Lambda function
-![xxxx](https://live.staticflickr.com/65535/54585003910_8fb360860b_b.jpg)
+### AWS Lambda Functions Configuration
+
+**DocumentProcessor Lambda Function**  
+![Configuration of DocumentProcessor Lambda Function](https://live.staticflickr.com/65535/54585003910_8fb360860b_b.jpg)
+
+**DecisionEngine Lambda Function**  
+![Configuration of DecisionEngine Lambda Function](https://live.staticflickr.com/65535/54583824502_630e939b59_b.jpg)
+
+**Timeout Configuration for DecisionEngine AI Processing**  
+![Timeout setup for DecisionEngine Lambda Function](https://live.staticflickr.com/65535/54585003915_e483156a4b_b.jpg)
+
+---
+
+### API Gateway Configuration
+
+![API Gateway configuration view 1](https://live.staticflickr.com/65535/54585003875_9a38e81b37_b.jpg)  
+![API Gateway configuration view 2](https://live.staticflickr.com/65535/54584692111_93e82c6e26_b.jpg)  
+![API Gateway configuration view 3](https://live.staticflickr.com/65535/54583824492_eae9722322_b.jpg)  
+![API Gateway configuration view 4](https://live.staticflickr.com/65535/54583824452_1554287e4f_b.jpg)  
+![API Gateway configuration view 5](https://live.staticflickr.com/65535/54585003820_f9063696c3_b.jpg)
+
+---
+
+### DynamoDB - `prior-auth-request` Table
+
+![DynamoDB prior-auth-request table structure](https://live.staticflickr.com/65535/54585003800_2ee41769c6_b.jpg)  
+![DynamoDB prior-auth-request table overview](https://live.staticflickr.com/65535/54585003795_6372a7e42a_b.jpg)  
+![DynamoDB table keys and items](https://live.staticflickr.com/65535/54584876914_09bd92cdf9_z.jpg)
+
+---
+
+### AWS Bedrock - Titan Text G1 Model
+
+![AWS Bedrock Titan Text G1 Express model configuration](https://live.staticflickr.com/65535/54584692036_34e61b3319.jpg)
+
+---
+
+### IAM & Permissions
+
+![IAM role permissions for Lambda](https://live.staticflickr.com/65535/54583824377_6a207caa1e_b.jpg)  
+![IAM role trust relationship](https://live.staticflickr.com/65535/54584876854_6d96c9b87a_b.jpg)  
+![IAM policy summary view](https://live.staticflickr.com/65535/54584691966_4cde9987e0_b.jpg)  
+![IAM permission list view 1](https://live.staticflickr.com/65535/54584909838_5010fddd0b_b.jpg)  
+![IAM permission list view 2](https://live.staticflickr.com/65535/54584909843_ef021d4184_b.jpg)  
+![IAM user/role detail view](https://live.staticflickr.com/65535/54585003725_6e0a4c8d47_b.jpg)
+
+---
+
+### AWS S3 Bucket Configuration
+
+![S3 bucket for prior-authorization document storage](https://live.staticflickr.com/65535/54584691976_09401ec6f8_b.jpg)  
+![S3 bucket configuration details](https://live.staticflickr.com/65535/54584876849_ed623de47c_b.jpg)
+
 
 ## ✅ Best Practices Followed
 

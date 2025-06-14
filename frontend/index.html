@@ -1,57 +1,409 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Prior Auth Automation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Prior Authorization Platform</title>
     <style>
-        body { font-family: Arial; max-width: 800px; margin: 0 auto; padding: 20px; }
-        .upload-box { border: 2px dashed #ccc; padding: 20px; text-align: center; margin: 20px 0; }
-        #result { margin-top: 20px; padding: 15px; border-radius: 5px; display: none; }
-        .approved { background-color: #d4edda; color: #155724; }
-        .denied { background-color: #f8d7da; color: #721c24; }
-        .processing { background-color: #e2e3e5; color: #383d41; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input, select { width: 100%; padding: 8px; box-sizing: border-box; }
-        button { background-color: #007bff; color: white; border: none; padding: 10px 15px; cursor: pointer; }
-        button:hover { background-color: #0069d9; }
-        .loading { display: none; margin-top: 10px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+        }
+
+        .logo::before {
+            content: "🏥";
+            font-size: 32px;
+        }
+
+        h1 {
+            color: #2d3748;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            color: #4a5568;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            background: #f7fafc;
+            transition: all 0.3s ease;
+            color: #2d3748;
+        }
+
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: #4facfe;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.1);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        .drop-zone {
+            border: 3px dashed #cbd5e0;
+            border-radius: 16px;
+            padding: 40px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .drop-zone:hover {
+            border-color: #4facfe;
+            background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+            transform: translateY(-2px);
+        }
+
+        .drop-zone p {
+            color: #718096;
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .drop-zone::before {
+            content: "📄";
+            font-size: 48px;
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(79, 172, 254, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 16px;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result.approved {
+            background: linear-gradient(135deg, #68d391 0%, #38b2ac 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(104, 211, 145, 0.3);
+        }
+
+        .result.denied {
+            background: linear-gradient(135deg, #fc8181 0%, #e53e3e 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(252, 129, 129, 0.3);
+        }
+
+        .result.processing {
+            background: linear-gradient(135deg, #fbb6ce 0%, #d69e2e 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(251, 182, 206, 0.3);
+        }
+
+        .result h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .result p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .result strong {
+            font-weight: 700;
+        }
+
+        .notes {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #edf2f7 0%, #f7fafc 100%);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4facfe;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 15px;
+            background: rgba(79, 172, 254, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(79, 172, 254, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .feature-text {
+            font-size: 12px;
+            color: #718096;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Prior Authorization Submission</h1>
-    
-    <div class="form-group">
-        <label for="treatmentType">Treatment Type:</label>
-        <input type="text" id="treatmentType" placeholder="e.g. MRI, Ozempic, Physical Therapy">
+    <div class="container">
+        <div class="header">
+            <div class="logo"></div>
+            <h1>Smart Prior Authorization</h1>
+            <p class="subtitle">AI-Powered Healthcare Automation Platform</p>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat">
+                <span class="stat-number">70%</span>
+                <span class="stat-label">Time Saved</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">92%</span>
+                <span class="stat-label">Approval Rate</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">4hrs</span>
+                <span class="stat-label">Avg Processing</span>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <span class="feature-icon">🤖</span>
+                <span class="feature-text">AI Analysis</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">⚡</span>
+                <span class="feature-text">Instant Processing</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🔒</span>
+                <span class="feature-text">HIPAA Compliant</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📊</span>
+                <span class="feature-text">Real-time Analytics</span>
+            </div>
+        </div>
+
+        <form id="priorAuthForm">
+            <div class="form-group">
+                <label for="patientName">Patient Name (Optional)</label>
+                <input type="text" id="patientName" placeholder="Enter patient name">
+            </div>
+
+            <div class="form-group">
+                <label for="treatmentType">Treatment Type *</label>
+                <input type="text" id="treatmentType" placeholder="e.g., MRI Knee, Ozempic, Physical Therapy" required>
+            </div>
+
+            <div class="form-group">
+                <label for="insuranceSelect">Insurance Provider</label>
+                <select id="insuranceSelect">
+                    <option value="aetna">Aetna</option>
+                    <option value="bcbs">Blue Cross Blue Shield</option>
+                    <option value="cigna">Cigna</option>
+                    <option value="humana">Humana</option>
+                    <option value="kaiser">Kaiser Permanente</option>
+                    <option value="united">United Healthcare</option>
+                    <option value="medicare">Medicare</option>
+                    <option value="medicaid">Medicaid</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Medical Documentation *</label>
+                <div class="drop-zone" id="dropZone">
+                    <p>Drag & drop medical documents here or click to browse</p>
+                </div>
+                <input type="file" id="fileInput" style="display: none;" accept=".pdf,.doc,.docx,.jpg,.png,.tiff">
+            </div>
+
+            <button type="button" class="submit-btn" id="submitBtn">
+                <span id="btnText">Submit for AI Analysis</span>
+                <div class="loading-spinner" id="loadingSpinner"></div>
+            </button>
+        </form>
+
+        <div class="result" id="result"></div>
     </div>
-    
-    <div class="form-group">
-        <label>Insurance Provider:</label>
-        <select id="insuranceSelect">
-            <option value="BlueCross">BlueCross BlueShield</option>
-            <option value="Aetna">Aetna</option>
-            <option value="UnitedHealthcare">UnitedHealthcare</option>
-            <option value="Cigna">Cigna</option>
-            <option value="Humana">Humana</option>
-        </select>
-    </div>
-    
-    <div class="form-group">
-        <label>Patient Name (optional):</label>
-        <input type="text" id="patientName" placeholder="John Doe">
-    </div>
-    
-    <div class="upload-box" id="dropZone">
-        <p>Drag & drop medical documents here or click to browse</p>
-        <input type="file" id="fileInput" accept=".pdf,.jpg,.png" style="display: none;">
-    </div>
-    
-    <div class="form-group">
-        <button id="submitBtn">Submit for Approval</button>
-        <div class="loading" id="loadingSpinner">Processing... Please wait</div>
-    </div>
-    
-    <div id="result"></div>
 
     <script src="app.js"></script>
 </body>

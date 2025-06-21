@@ -6,6 +6,7 @@ Here is your complete and professional `README.md` in **English**, formatted and
 # 🏥 Medical Prior Authorization System with AWS Lambda & Bedrock
 
 This project implements an intelligent system to automate **medical prior authorization** requests using **AWS Lambda**, **Amazon Bedrock**, and **DynamoDB**. It analyzes incoming requests, evaluates them against insurer-specific rules, and generates a structured decision response.
+````
 
 ---
 

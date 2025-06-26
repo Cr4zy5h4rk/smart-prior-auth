@@ -211,7 +211,7 @@ Custom business rules are implemented for insurers such as:
 ![IAM role trust relationship](https://live.staticflickr.com/65535/54584876854_6d96c9b87a_b.jpg)  
 ![IAM policy summary view](https://live.staticflickr.com/65535/54584691966_4cde9987e0_b.jpg)  
 ![IAM permission list view 1](https://live.staticflickr.com/65535/54584909838_5010fddd0b_b.jpg)  
-![IAM permission list view 2](https://live.staticflickr.com/65535/54584909843_ef021d4184_b.jpg)  
+![IAM permission list view 2](https://live.staticflickr.com/65535/54614134222_d5857a0122_h.jpg)  
 ![IAM user/role detail view](https://live.staticflickr.com/65535/54585003725_6e0a4c8d47_b.jpg)
 
 ---

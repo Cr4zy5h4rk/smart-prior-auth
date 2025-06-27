@@ -142,6 +142,37 @@ Custom business rules are implemented for insurers such as:
 
 ---
 
+## 📄 Test Documents - Prior Authorization Use Cases
+
+This project includes sample documents to simulate **prior authorization scenarios** through the AI pipeline. These files help validate system behavior in both acceptance and rejection cases.
+
+### ✅ Acceptance Test Case
+
+- **Document**: `PRIOR_AUTHORIZATION_REQUEST_FORM.pdf`  
+- **Patient**: John Doe  
+- **Insurance**: Blue Cross Blue Shield  
+- **Requested Treatment**: Ozempic  
+- **Expected Outcome**: **Authorization Approved**
+
+> This document simulates a valid prior authorization request and is used to test the system's approval workflow.
+
+---
+
+### ❌ Rejection Test Case
+
+- **Document**: `PRIOR_AUTHORIZATION_REQUEST_FORM_reject.pdf`  
+- **Patient**: Michael Rodriguez  
+- **Insurance**: United Health Care  
+- **Requested Treatment**: MRI Lumbar Spine without contrast  
+- **Expected Outcome**: **Authorization Denied**
+
+> This document represents an invalid or non-covered request and is used to test the rejection handling logic.
+
+---
+
+📂 Be sure to upload these test PDFs to the designated S3 bucket before initiating a test, or use the upload interface if provided in the application.
+
+
 ## 🛠️ Deployment
 
 ### 1. Prerequisites
